@@ -7,9 +7,24 @@ from dotenv import load_dotenv
 # 사용자 입력 패턴 -> 실제 정책 이름 매핑
 PATTERN_EXCEPTIONS = {
     # 여러 CHECKID가 하나의 정책으로 매핑
-    'ec2_instance_port_sqlserver_exposed_to_internet': 'ec2_instance_port',
-    'ec2_instance_port_ssh_exposed_to_internet': 'ec2_instance_port',
-    'ec2_instance_port_telnet_exposed_to_internet': 'ec2_instance_port',
+    'ec2_securitygroup_allow_ingress_from_internet_to_all_ports': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_any_port': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_high_risk_tcp_ports': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_port_mongodb_27017_27018': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_ftp_port_20_21': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_22': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_3389': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_cassandra_7199_9160_8888': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_elasticsearch_kibana_9200_9300_5601': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_kafka_9092': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_memcached_11211': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_mysql_3306': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_oracle_1521_2483': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_postgres_5432': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_redis_6379': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_sql_server_1433_1434': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_telnet_23': 'ec2_securitygroup_allow',
+    'ec2_securitygroup_allow_wide_open_public_ipv4': 'ec2_securitygroup_allow',
     # CHECKID 축약칭 매핑
     'account_maintain_different_contact_details_to_security_billing_and_operations':
         'account_maintain_different_contact_details_security_bill_op',
