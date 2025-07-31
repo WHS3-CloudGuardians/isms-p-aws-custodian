@@ -32,8 +32,8 @@ policies:
           queue: ${QUEUE_URL}
 
 
-# CHECKID: eventbridge_bus_exposed
-# ACTIONPLAN: 크로스 계정이나 외부 노출이 가능한 EventBridge 버스를 탐지하고 경고 또는 접근 정책 점검을 유도
+  # CHECKID: eventbridge_bus_exposed
+  # ACTIONPLAN: 크로스 계정이나 외부 노출이 가능한 EventBridge 버스를 탐지하고 경고 또는 접근 정책 점검을 유도
   - name: eventbridge-bus-exposed
     resource: aws.event-bus
     description: "Alert: eventbridge bus exposed"
