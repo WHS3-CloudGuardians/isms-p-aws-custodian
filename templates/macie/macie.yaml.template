@@ -1,12 +1,12 @@
 policies:
-# CHECKID: macie_is_enabled
-# ACTIONPLAN: Amazon Macie가 계정 또는 리전에 대해 활성화되어 민감 정보 탐지가 가능하도록 설정되었는지 확인
-# ACTIONPLAN: Macie를 활성화하여 S3 내 개인정보 탐지 정책 설정
-# ACTIONPLAN: Macie 비활성 계정 탐지 후 개인정보 보호 강화를 위해 자동 활성화 적용
-# ACTIONPLAN: 특정 AWS 리전에서 Macie가 활성화되어 있지 않은 경우 탐지하여 알림
+  # CHECKID: macie_is_enabled
+  # ACTIONPLAN: Amazon Macie가 계정 또는 리전에 대해 활성화되어 민감 정보 탐지가 가능하도록 설정되었는지 확인
+  # ACTIONPLAN: Macie를 활성화하여 S3 내 개인정보 탐지 정책 설정
+  # ACTIONPLAN: Macie 비활성 계정 탐지 후 개인정보 보호 강화를 위해 자동 활성화 적용
+  # ACTIONPLAN: 특정 AWS 리전에서 Macie가 활성화되어 있지 않은 경우 탐지하여 알림
   - name: macie_is_enabled
     resource: aws.account
-    description: Alert: Macie is disabled
+    description: "Alert: Macie is disabled"
     mode:
       type: periodic
       schedule: "rate(7 days)" 
