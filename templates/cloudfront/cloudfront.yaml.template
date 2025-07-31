@@ -1,10 +1,10 @@
 policies:
 
-# CHECKID: cloudfront_distributions_field_level_encryption_enabled
-# ACTIONPLAN: CloudFront 필드 수준 암호화 설정 누락 시 보완
+  # CHECKID: cloudfront_distributions_field_level_encryption_enabled
+  # ACTIONPLAN: CloudFront 필드 수준 암호화 설정 누락 시 보완
   - name: cloudfront_distributions_field_level_encryption_enabled
+    description: CloudFront distributions field level encryption disabled alert
     resource: aws.distribution
-    description: "CloudFront distributions field level encryption disabled alert"
     mode:
       type: periodic
       schedule: "rate(30 minutes)"
@@ -30,11 +30,11 @@ policies:
           type: sqs
           queue: ${QUEUE_URL}
 
-# CHECKID: cloudfront_distributions_geo_restrictions_enabled
-# ACTIONPLAN: CloudFront 배포에 대해 지리적 제한이 활성화되지 않은 경우 탐지하고 태깅, 경고
+  # CHECKID: cloudfront_distributions_geo_restrictions_enabled
+  # ACTIONPLAN: CloudFront 배포에 대해 지리적 제한이 활성화되지 않은 경우 탐지하고 태깅, 경고
   - name: cloudfront_distributions_geo_restrictions_enabled
+    description: cloudfront distributions geo restrictions disabled alert
     resource: aws.distribution
-    description: "cloudfront distributions geo restrictions disabled alert"
     mode:
       type: periodic
       schedule: "rate(1 day)"
@@ -60,13 +60,13 @@ policies:
           type: sqs
           queue: ${QUEUE_URL}
 
-# CHECKID: cloudfront_distributions_https_enabled
-# ACTIONPLAN: CloudFront HTTPS 설정 누락 시 정책 위반 알림
-# ACTIONPLAN: CloudFront 배포에 HTTPS가 설정되지 않은 경우 SSL 인증서 강제 적용
-# ACTIONPLAN: CloudFront 배포에 대해 HTTPS만 허용하도록 'Viewer Protocol Policy'를 Redirect to HTTPS로 설정
+  # CHECKID: cloudfront_distributions_https_enabled
+  # ACTIONPLAN: CloudFront HTTPS 설정 누락 시 정책 위반 알림
+  # ACTIONPLAN: CloudFront 배포에 HTTPS가 설정되지 않은 경우 SSL 인증서 강제 적용
+  # ACTIONPLAN: CloudFront 배포에 대해 HTTPS만 허용하도록 'Viewer Protocol Policy'를 Redirect to HTTPS로 설정
   - name: cloudfront_distributions_https_enabled
+    description: cloudfront distributions https disabled alert
     resource: aws.distribution
-    description: "cloudfront distributions https disabled alert"
     mode:
       type: periodic
       schedule: "rate(1 day)"
@@ -92,11 +92,11 @@ policies:
           type: sqs
           queue: ${QUEUE_URL}
 
-# CHECKID: cloudfront_distributions_logging_enabled
-# ACTIONPLAN: CloudFront 배포에서 로그 설정이 꺼져 있는 경우, 활성화 설정 적용
+  # CHECKID: cloudfront_distributions_logging_enabled
+  # ACTIONPLAN: CloudFront 배포에서 로그 설정이 꺼져 있는 경우, 활성화 설정 적용
   - name: cloudfront_distributions_logging_enabled
+    description: cloudfront distributions logging disabled alert
     resource: aws.distribution
-    description: "cloudfront distributions logging disabled alert"
     mode:
       type: periodic
       schedule: "rate(1 day)"
@@ -129,8 +129,8 @@ policies:
 # ACTIONPLAN: CloudFront에서 SSL 프로토콜을 TLS 1.2 이상으로 강제 설정
 # ACTIONPLAN: CloudFront 배포에서 지원 중단된 SSL 프로토콜을 제거하고 TLS 1.2 이상으로 설정
   - name: cloudfront_distributions_using_deprecated_ssl_protocols
+    description: cloudfront distributions using legacy ssl protocols alert
     resource: aws.distribution
-    description: "cloudfront distributions using legacy ssl protocols alert"
     mode:
       type: periodic
       schedule: "rate(7 days)"
@@ -156,12 +156,12 @@ policies:
           type: sqs
           queue: ${QUEUE_URL}
 
-# CHECKID: cloudfront_distributions_using_waf
-# ACTIONPLAN: CloudFront 배포에 AWS WAF를 연결하여 웹 공격 차단 정책 적용
-# ACTIONPLAN: WAF가 연결되지 않은 CloudFront 배포에 WebACL 자동 적용
+  # CHECKID: cloudfront_distributions_using_waf
+  # ACTIONPLAN: CloudFront 배포에 AWS WAF를 연결하여 웹 공격 차단 정책 적용
+  # ACTIONPLAN: WAF가 연결되지 않은 CloudFront 배포에 WebACL 자동 적용
   - name: cloudfront_distributions_using_waf
+    description: cloudfront distributions using none waf alert
     resource: aws.distribution
-    description: "cloudfront distributions using none waf alert"
     mode:
       type: periodic
       schedule: "rate(1 day)"
