@@ -25,7 +25,6 @@
 - [isms-p-aws-custodian 사용 가이드](https://www.notion.so/isms-p-aws-custodian-240c86faa56f8074a5f1d0a4378d6f24?source=copy_link)
 ---
 
-
 ## 사용 방법
 > Prowler, Cloud Custodian의 설치 방법은 설명하지 않습니다. Prowler, Cloud Custodian의 공식 문서 또는 구름수비대 팀 공식 노션을 참고하세요.
 
@@ -38,9 +37,8 @@ git clone https://github.com/WHS3-CloudGuardians/isms-p-aws-custodian.git
 **의존성 설치**
 ```
 # isms-p-aws-custodian 경로로 이동 후
-$ pip install -e .
+pip install -e .
 ```
-</br>
 
 ### 환경 설정
 > 정책을 생성하기 전에 AWS 환경을 세팅하고 .env 파일 구성을 완료하세요. .env파일에 빈 항목이 있으면 정책이 생성되지 않습니다.
@@ -65,7 +63,95 @@ WARNING_SLACK=https://hooks.slack.com/services/DDD/EEE/FFF
 DANGER_SLACK=https://hooks.slack.com/services/GGG/HHH/III
 ```
 
+### 정책 생성
+**mailer.yaml, enforce-policies.yaml 포함 정책 생성**
+최초 1회 필수 실행
+```
+generate
+```
 
+**명령어 예시**
+```
+# 모든 서비스에 대해 정책 생성
+generate all
+
+# 하나의 서비스에 대해 정책 생성/모든 서비스는 띄어쓰기 없이 작성
+generate apigateway
+
+# 여러 서비스에 대해 정책 생성
+generate ec2 s3
+```
+
+---
+
+### 수동 조치 방법
+> `enforce-policies.yaml`은 즉각 수동 조치를 할 수 있는 정책 파일입니다. `enforce`명령어로 특정 정책이름(CHECKID)에 대해 즉각 조치를 취할 수 있습니다. 여러 개의 정책이름 입력도 가능합니다.
+
+**모든 정책에 대해 즉각 조치**
+```
+enforce
+# 또는
+enforce all
+```
+
+**`mailer` 실행**
+정책을 실행하고 `y`를 입력해 `mailer`를 실행할 수 있습니다.
+```
+$ enforce ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_telnet_23
+▶ Running: custodian run --region ap-northeast-2 -s /home/user/isms-p-aws-custodian/out -p ec2_securitygroup_allow /home/user/isms-p-aws-custodian/enforce/enforce-policies.yaml
+2025-07-31 16:54:05,144: custodian.policy:INFO policy:ec2_securitygroup_allow resource:aws.security-group region:ap-northeast-2 count:0 time:0.00
+🎉 Custodian run completed successfully!
+Would you like to run the mailer (c7n-mailer)? [y/N]:
+```
+**명령어 예시**
+```
+# 특정 CHECKID에 대해 조치
+enforce ec2_ebs_default_encryption
+
+# CHECKID를 여러개 입력하는 것도 가능합니다
+enforce ec2_ebs_default_encryption vpc_flow_logs_enabled
+
+# 다음과 같이 입력하는 것도 가능합니다
+enforce ec2*
+
+# 실제 Cloud Custodian의 flag를 입력하여 전달할 수 있습니다
+enforce -s . ec2_ebs* vpc_flow_logs_enabled
+enforce --dryrun -s out s3*
+
+# 정책이 잘 탐지되지 않을 경우 cache를 비우면서 실행해 보세요.
+enforce --cache-period=0 -s out elb* 
+```
+
+### 정책 람다 배포
+> `deploy` 명령어를 입력하여 정책을 람다 배포할 수 있습니다.
+
+**`mailer`배포**
+최초 1회 필수 실행
+```
+deploy mailer
+```
+**명령어 예시**
+```
+# 존재하는 모든 정책 배포
+deploy all
+
+# 특정 CHECKID에 대해 배포
+deploy ec2_ebs_default_encryption
+
+# CHECKID를 여러개 입력하는 것도 가능합니다
+deploy ec2_ebs_default_encryption vpc_flow_logs_enabled
+
+# 다음과 같이 입력하는 것도 가능합니다
+deploy ec2*
+
+# 실제 Cloud Custodian의 flag를 입력하여 전달할 수 있습니다
+deploy -s . ec2_ebs* vpc_flow_logs_enabled
+deploy --dryrun -s out s3*
+
+# 정책이 잘 탐지되지 않을 경우 cache를 비우면서 실행해 보세요.
+deploy --cache-period=0 -s out elb* 
+```
+</br>
 
 ## ☁️ 프로젝트 팀 - **구름수비대**
 
