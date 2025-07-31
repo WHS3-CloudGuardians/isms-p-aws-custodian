@@ -9,7 +9,7 @@ policies:
     description: "Alert: Macie is disabled"
     mode:
       type: periodic
-      schedule: "rate(1 hour)" 
+      schedule: "rate(7 days)" 
       role: ${LAMBDA_ROLE}
     filters:
       - type: check-macie
