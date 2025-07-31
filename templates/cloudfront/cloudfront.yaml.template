@@ -1,14 +1,13 @@
 policies:
-# CloudFront ----------------------------------------------------------- CloudFront
 
 # CHECKID: cloudfront_distributions_field_level_encryption_enabled
 # ACTIONPLAN: CloudFront 필드 수준 암호화 설정 누락 시 보완
-  - name: cloudfront-field-level-encryption-enabled
+  - name: cloudfront_distributions_field_level_encryption_enabled
     resource: aws.distribution
     description: "CloudFront distributions field level encryption disabled alert"
     mode:
       type: periodic
-      schedule: "rate(15 minutes)"
+      schedule: "rate(30 minutes)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -17,7 +16,7 @@ policies:
         op: eq
     actions:
       - type: notify
-        template: slack-default
+        slack_template: slack_default
         slack_msg_color: danger
         violation_desc: |
           *** CHECKID: cloudfront_distributions_field_level_encryption_enabled ***
@@ -33,7 +32,7 @@ policies:
 
 # CHECKID: cloudfront_distributions_geo_restrictions_enabled
 # ACTIONPLAN: CloudFront 배포에 대해 지리적 제한이 활성화되지 않은 경우 탐지하고 태깅, 경고
-  - name: cloudfront-geo-restrictions-enabled
+  - name: cloudfront_distributions_geo_restrictions_enabled
     resource: aws.distribution
     description: "cloudfront distributions geo restrictions disabled alert"
     mode:
@@ -47,7 +46,7 @@ policies:
         op: eq
     actions:
       - type: notify
-        template: slack-default
+        slack_template: slack_default
         slack_msg_color: warning
         violation_desc: |
           *** CHECKID: cloudfront_distributions_geo_restrictions_enabled ***
@@ -65,12 +64,12 @@ policies:
 # ACTIONPLAN: CloudFront HTTPS 설정 누락 시 정책 위반 알림
 # ACTIONPLAN: CloudFront 배포에 HTTPS가 설정되지 않은 경우 SSL 인증서 강제 적용
 # ACTIONPLAN: CloudFront 배포에 대해 HTTPS만 허용하도록 'Viewer Protocol Policy'를 Redirect to HTTPS로 설정
-  - name: cloudfront-https-enabled
+  - name: cloudfront_distributions_https_enabled
     resource: aws.distribution
     description: "cloudfront distributions https disabled alert"
     mode:
       type: periodic
-      schedule: "rate(15 minutes)"
+      schedule: "rate(1 day)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -79,7 +78,7 @@ policies:
         op: eq
     actions:
       - type: notify
-        template: slack-default
+        slack_template: slack_default
         slack_msg_color: danger
         violation_desc: |
           *** CHECKID: cloudfront_distributions_https_enabled ***
@@ -95,7 +94,7 @@ policies:
 
 # CHECKID: cloudfront_distributions_logging_enabled
 # ACTIONPLAN: CloudFront 배포에서 로그 설정이 꺼져 있는 경우, 활성화 설정 적용
-  - name: cloudfront-logging-enabled
+  - name: cloudfront_distributions_logging_enabled
     resource: aws.distribution
     description: "cloudfront distributions logging disabled alert"
     mode:
@@ -109,7 +108,7 @@ policies:
         op: eq
     actions:
       - type: notify
-        template: slack-default
+        slack_template: slack_default
         slack_msg_color: warning
         violation_desc:  |
           *** CHECKID: cloudfront_distributions_logging_enabled ***
@@ -129,12 +128,12 @@ policies:
 # ACTIONPLAN: 지원 종료된 SSL/TLS 프로토콜 사용 중지 및 최신 버전 설정
 # ACTIONPLAN: CloudFront에서 SSL 프로토콜을 TLS 1.2 이상으로 강제 설정
 # ACTIONPLAN: CloudFront 배포에서 지원 중단된 SSL 프로토콜을 제거하고 TLS 1.2 이상으로 설정
-  - name: cloudfront-using-deprecated-ssl-protocols
+  - name: cloudfront_distributions_using_deprecated_ssl_protocols
     resource: aws.distribution
     description: "cloudfront distributions using legacy ssl protocols alert"
     mode:
       type: periodic
-      schedule: "rate(1 day)"
+      schedule: "rate(7 days)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -143,7 +142,7 @@ policies:
         value: ["SSLv3", "TLSv1", "TLSv1_2016", "TLSv1.1_2016"]
     actions:
       - type: notify
-        template: slack-default
+        slack_template: slack_default
         slack_msg_color: warning
         violation_desc: |
           *** CHECKID: cloudfront_distributions_using_deprecated_ssl_protocols ***
@@ -160,7 +159,7 @@ policies:
 # CHECKID: cloudfront_distributions_using_waf
 # ACTIONPLAN: CloudFront 배포에 AWS WAF를 연결하여 웹 공격 차단 정책 적용
 # ACTIONPLAN: WAF가 연결되지 않은 CloudFront 배포에 WebACL 자동 적용
-  - name: cloudfront-using-waf
+  - name: cloudfront_distributions_using_waf
     resource: aws.distribution
     description: "cloudfront distributions using none waf alert"
     mode:
@@ -177,7 +176,7 @@ policies:
             value: ""
     actions:
       - type: notify
-        template: slack-default
+        slack_template: slack_default
         slack_msg_color: warning
         violation_desc: |
           *** CHECKID: cloudfront_distributions_using_waf ***
