@@ -1,5 +1,56 @@
 policies:
 
+  # CHECKID: ec2_instance_port_cassandra_exposed_to_internet
+  # CHECKID: ec2_instance_port_cifs_exposed_to_internet
+  # CHECKID: ec2_instance_port_elasticsearch_kibana_exposed_to_internet
+  # CHECKID: ec2_instance_port_ftp_exposed_to_internet
+  # CHECKID: ec2_instance_port_kafka_exposed_to_internet
+  # CHECKID: ec2_instance_port_kerberos_exposed_to_internet
+  # CHECKID: ec2_instance_port_ldap_exposed_to_internet
+  # CHECKID: ec2_instance_port_memcached_exposed_to_internet
+  # CHECKID: ec2_instance_port_mongodb_exposed_to_internet
+  # CHECKID: ec2_instance_port_mysql_exposed_to_internet
+  # CHECKID: ec2_instance_port_oracle_exposed_to_internet
+  # CHECKID: ec2_instance_port_postgresql_exposed_to_internet
+  # CHECKID: ec2_instance_port_rdp_exposed_to_internet
+  # CHECKID: ec2_instance_port_redis_exposed_to_internet
+  # CHECKID: ec2_instance_port_sqlserver_exposed_to_internet
+  # CHECKID: ec2_instance_port_ssh_exposed_to_internet
+  # CHECKID: ec2_instance_port_telnet_exposed_to_internet
+  # ACTIONPLAN: 0.0.0.0/0 전체/임의/고위험/특정 서비스 포트 인바운드 오픈 규칙 인스턴스 탐지
+  - name: ec2_instance_port
+    description: |
+      Detect instances when 0.0.0.0/0 inbound (all/random/high-risk/specific service ports) is opened
+    resource: aws.ec2
+    mode:
+      type: periodic
+      role: ${LAMBDA_ROLE}
+      schedule: "rate(1 day)"
+    filters:
+      - type: value
+        key: PublicIpAddress
+        op: ne
+        value: null
+      - type: security-group
+        key: IpPermissions[].IpRanges[].CidrIp
+        op: contains  
+        value: 0.0.0.0/0
+    actions:
+      - type: notify
+        slack_template: slack_default
+        slack_msg_color: danger
+        violation_desc: |
+          *** CHECKID: ec2_instance_port_* ***
+          • 0.0.0.0/0(전체 인바운드)로 오픈된 보안그룹을 가진 인스턴스가 있습니다.
+        action_desc: |
+          1. 반드시 필요한 경우가 아니라면 0.0.0.0/0 인바운드 허용을 삼가주세요.
+          2. 인바운드 규칙은 최소 권한 원칙에 따라 제한적으로 관리해 주세요.
+        to:
+          - ${DANGER_SLACK}
+        transport:
+          type: sqs
+          queue: ${QUEUE_URL}
+
   # CHECKID: ec2_instance_account_imdsv2_enabled
   # ACTIONPLAN: 계정 IMDS 기본 HttpTokens을 required로 변경
   - name: ec2_instance_account_imdsv2_enabled
