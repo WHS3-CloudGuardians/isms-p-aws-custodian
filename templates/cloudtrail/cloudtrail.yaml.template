@@ -3,11 +3,11 @@ policies:
   # CHECKID: cloudtrail_bucket_requires_mfa_delete
   # ACTIONPLAN: MFA Delete 비활성 S3 버킷 탐지 시 Slack 알림, 수동 조치 유도
   - name: cloudtrail_bucket_requires_mfa_delete
-    resource: aws.s3
     description: Detect S3 buckets with MFA Delete disabled and send alerts to Slack
+    resource: aws.s3
     mode:
       type: periodic
-      schedule: "rate(24 hours)"
+      schedule: "rate(1 day)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -36,11 +36,11 @@ policies:
   # ACTIONPLAN: CloudTrail 트레일의 CloudWatch 연동·로깅 미설정 시 자동 활성화 후 알림
   # 여러 정책을 동시에 배포하면 Lambda 함수 충돌(ResourceConflictException)이 발생할 수 있으니, 에러 시 1~2분 후 해당 정책만 재실행하세요.
   - name: cloudtrail_cloudwatch_logging_enabled
-    resource: aws.cloudtrail
     description: If a CloudTrail trail is not integrated with CloudWatch Logs or logging is disabled, automatically configure the integration and send a Slack notification.
+    resource: aws.cloudtrail
     mode:
       type: periodic
-      schedule: "rate(1 hour)"
+      schedule: "rate(1 day)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -76,11 +76,11 @@ policies:
   # CHECKID: cloudtrail_insights_exist
   # ACTIONPLAN: CloudTrail Insights 미설정 시 Slack 알림, 수동 활성화 유도
   - name: cloudtrail_insights_exist
+    description: Detect and notify when CloudTrail Insights is disabled
     resource: aws.cloudtrail
-    description: Detect and notify when CloudTrail Insights is disabled.
     mode:
       type: periodic
-      schedule: "rate(1 hour)"
+      schedule: "rate(7 days)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -105,11 +105,11 @@ policies:
   # CHECKID: cloudtrail_kms_encryption_enabled
   # ACTIONPLAN: CloudTrail 로그 KMS 미암호화 탐지 시 Slack 알림, 수동 설정 유도
   - name: cloudtrail_kms_encryption_enabled
+    description: Detect CloudTrails that are not encrypted with KMS
     resource: aws.cloudtrail
-    description: Detect CloudTrails that are not encrypted with KMS.
     mode:
       type: periodic
-      schedule: "rate(1 hour)"
+      schedule: "rate(2 hours)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -134,8 +134,8 @@ policies:
   # CHECKID: cloudtrail_log_file_validation_enabled
   # ACTIONPLAN: CloudTrail 로그 무결성 검증 미설정 시 Slack 알림, 수동 점검 유도
   - name: cloudtrail_log_file_validation_enabled
+    description: Send Slack notification when CloudTrail log file validation is disabled
     resource: aws.cloudtrail
-    description: Send Slack notification when CloudTrail log file validation is disabled.
     mode:
       type: periodic
       schedule: "rate(1 day)"
@@ -163,8 +163,8 @@ policies:
   # CHECKID: cloudtrail_logs_s3_bucket_access_logging_enabled
   # ACTIONPLAN: S3 Access Logging 비활성 버킷 탐지 시 Slack 알림, 수동 설정 유도
   - name: cloudtrail_logs_s3_bucket_access_logging_enabled
+    description: Notify when S3 bucket access logging is disabled
     resource: aws.s3
-    description: Notify when S3 bucket access logging is disabled.
     mode:
       type: periodic
       schedule: "rate(1 day)"
@@ -196,8 +196,8 @@ policies:
   # CHECKID: cloudtrail_logs_s3_bucket_is_not_publicly_accessible
   # ACTIONPLAN: CloudTrail 로그 저장 버킷 퍼블릭 노출 탐지 시 Slack 알림, 수동 차단 유도
   - name: cloudtrail_logs_s3_bucket_is_not_publicly_accessible
+    description: Send Slack notification when CloudTrail log bucket is publicly accessible
     resource: aws.s3
-    description: Send Slack notification when CloudTrail log bucket is publicly accessible.
     mode:
       type: periodic
       schedule: "rate(1 day)"
@@ -226,11 +226,11 @@ policies:
   # CHECKID: cloudtrail_multi_region_or_no_management_events
   # ACTIONPLAN: CloudTrail 다중 리전/관리 이벤트 미활성 탐지 시 Slack 알림, 수동 활성화 유도
   - name: cloudtrail_multi_region_or_no_management_events
+    description: Send Slack notification when CloudTrail is not logging in all regions or not capturing management events
     resource: aws.cloudtrail
-    description: Send Slack notification when CloudTrail is not logging in all regions or not capturing management events.
     mode:
       type: periodic
-      schedule: "rate(1 hour)"
+      schedule: "rate(7 days)"
       role: ${LAMBDA_ROLE}
     filters:
       - or:
@@ -259,11 +259,11 @@ policies:
   # CHECKID: cloudtrail_multi_region_enabled
   # ACTIONPLAN: CloudTrail 단일 리전 트레일 탐지 시 Slack 알림, 다중 리전 설정 유도
   - name: cloudtrail_multi_region_enabled
+    description: Send Slack notification when CloudTrail is not enabled for multi-region logging
     resource: aws.cloudtrail
-    description: Send Slack notification when CloudTrail is not enabled for multi-region logging.
     mode:
       type: periodic
-      schedule: "rate(24 hours)"
+      schedule: "rate(7 days)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -289,8 +289,8 @@ policies:
   # CHECKID: cloudtrail_s3_dataevents_read_enabled
   # ACTIONPLAN: S3 객체 읽기 이벤트 로깅 미설정 트레일 탐지 시 Slack 알림, 수동 활성화 유도
   - name: cloudtrail_s3_dataevents_read_enabled
+    description: Detect CloudTrail trails without S3 read data event logging
     resource: aws.cloudtrail
-    description: Detect CloudTrail trails without S3 read data event logging.
     mode:
       type: periodic
       schedule: "rate(1 day)"
@@ -319,8 +319,8 @@ policies:
   # CHECKID: cloudtrail_s3_dataevents_write_enabled
   # ACTIONPLAN: S3 객체 쓰기 이벤트 로깅 미설정 트레일 탐지 시 Slack 알림, 수동 활성화 유도
   - name: cloudtrail_s3_dataevents_write_enabled
+    description: CloudTrail is not logging S3 object-level write events, making it impossible to track changes like object creation or deletion
     resource: aws.cloudtrail
-    description: CloudTrail is not logging S3 object-level write events, making it impossible to track changes like object creation or deletion.
     mode:
       type: periodic
       schedule: "rate(1 day)"
@@ -333,7 +333,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_color: danger
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: cloudtrail_s3_dataevents_write_enabled ***
           • CloudTrail에서 S3 객체 수준의 쓰기 이벤트 로깅이 비활성화된 상태로 탐지되었습니다.
@@ -341,7 +341,7 @@ policies:
           1. CloudTrail 설정에서 S3 객체 수준(Write) 데이터 이벤트 로깅을 활성화하세요.
           2. 로그 비용/운영 정책 변경 시 비즈니스 요구에 따라 범위를 주기적으로 재점검하세요.
         to:
-          - ${DANGER_SLACK}
+          - ${WARNING_SLACK}
         transport:
           type: sqs
           queue: ${QUEUE_URL}
