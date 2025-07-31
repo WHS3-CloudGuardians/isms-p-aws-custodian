@@ -4,7 +4,6 @@ policies:
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_high_risk_tcp_ports
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_port_mongodb_27017_27018
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_ftp_port_20_21
-  # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_22
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_3389
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_cassandra_7199_9160_8888
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_elasticsearch_kibana_9200_9300_5601
@@ -17,25 +16,8 @@ policies:
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_sql_server_1433_1434
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_telnet_23
   # CHECKID: ec2_securitygroup_allow_wide_open_public_ipv4
-  # CHECKID: ec2_instance_port_cassandra_exposed_to_internet
-  # CHECKID: ec2_instance_port_cifs_exposed_to_internet
-  # CHECKID: ec2_instance_port_elasticsearch_kibana_exposed_to_internet
-  # CHECKID: ec2_instance_port_ftp_exposed_to_internet
-  # CHECKID: ec2_instance_port_kafka_exposed_to_internet
-  # CHECKID: ec2_instance_port_kerberos_exposed_to_internet
-  # CHECKID: ec2_instance_port_ldap_exposed_to_internet
-  # CHECKID: ec2_instance_port_memcached_exposed_to_internet
-  # CHECKID: ec2_instance_port_mongodb_exposed_to_internet
-  # CHECKID: ec2_instance_port_mysql_exposed_to_internet
-  # CHECKID: ec2_instance_port_oracle_exposed_to_internet
-  # CHECKID: ec2_instance_port_postgresql_exposed_to_internet
-  # CHECKID: ec2_instance_port_rdp_exposed_to_internet
-  # CHECKID: ec2_instance_port_redis_exposed_to_internet
-  # CHECKID: ec2_instance_port_sqlserver_exposed_to_internet
-  # CHECKID: ec2_instance_port_ssh_exposed_to_internet
-  # CHECKID: ec2_instance_port_telnet_exposed_to_internet
   # ACTIONPLAN: 0.0.0.0/0 전체/임의/고위험/특정 서비스 포트 인바운드 오픈 규칙 실시간 자동 삭제
-  - name: ec2_instance_securitygroup_ports
+  - name: ec2_securitygroup_allow
     description: |
       Automatically deletes when 0.0.0.0/0 inbound (all/random/high-risk/specific service ports) is opened
     resource: aws.security-group
