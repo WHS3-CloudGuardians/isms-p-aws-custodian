@@ -1,6 +1,3 @@
-# name too long
-# action
-
 policies:
   # CHECKID: iam_administrator_access_with_mfa
   # ACTIONPLAN: AdministratorAccess가 할당된 IAM 사용자 중 MFA 미적용 계정 탐지 시 Slack 알림 발송
@@ -9,7 +6,7 @@ policies:
     resource: aws.iam-user
     mode:
       type: periodic
-      schedule: "rate(7 days)" 
+      schedule: "rate(1 day)" 
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -74,7 +71,7 @@ policies:
     resource: aws.iam-user
     mode:
       type: periodic
-      schedule: "rate(7 days)"
+      schedule: "rate(1 day)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -132,7 +129,7 @@ policies:
     resource: aws.iam-policy
     mode:
       type: periodic
-      schedule: "rate(7 days)"
+      schedule: "rate(1 day)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -200,7 +197,7 @@ policies:
     resource: aws.iam-group
     mode:
       type: periodic
-      schedule: "rate(7 days)" 
+      schedule: "rate(1 day)" 
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -942,7 +939,7 @@ policies:
     resource: aws.iam-user
     mode:
       type: periodic
-      schedule: "rate(7 days)" 
+      schedule: "rate(1 day)" 
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
