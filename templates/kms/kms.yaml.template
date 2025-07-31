@@ -16,7 +16,7 @@ policies:
         op: eq
       - type: value
         key: CreationDate
-        value: '2025-04-17T00:00:00+00:00'
+        value: '2025-04-17T00:00:00+00:00' # 적당한 날짜로 수정
         op: lt
     actions:
       - type: tag
