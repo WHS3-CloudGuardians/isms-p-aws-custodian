@@ -39,7 +39,8 @@ policies:
         slack_template: slack_default
         slack_msg_color: good
         violation_desc: |
-          *** CHECKID: ec2_instance_securitygroup_ports ***
+          *** CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_* ***
+          *** CHECKID: ec2_securitygroup_allow_wide_open_public_ipv4 ***
           • 0.0.0.0/0(전체 인바운드)로 오픈된 보안그룹 규칙이 탐지되어 삭제 조치하였습니다.
         action_desc: |
           1. 반드시 필요한 경우가 아니라면 0.0.0.0/0 인바운드 허용을 삼가주세요.
