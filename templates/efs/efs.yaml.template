@@ -2,7 +2,7 @@ policies:
   # CHECKID: efs_encryption_at_rest_enabled
   # ACTIONPLAN: Glue ETL 로그가 KMS로 암호화되지 않은 경우 알림 및 적용
   - name: efs_encryption_at_rest_enabled
-    description: Alert: EFS Without encryption
+    description: "Alert: EFS Without encryption"
     resource: aws.efs
     mode:
       type: periodic
@@ -30,7 +30,7 @@ policies:
   # CHECKID: efs_have_backup_enabled
   # ACTIONPLAN: AWS Backup을 통해 EFS 파일 시스템에 백업 계획을 적용하고 일별 백업 활성화
   - name: efs_have_backup_enabled
-    description: Alert: EFS Without Backup
+    description: "Alert: EFS Without Backup"
     resource: aws.efs
     mode:
       type: periodic
@@ -60,7 +60,7 @@ policies:
 # CHECKID: efs_not_publicly_accessible
 # ACTIONPLAN: RDS 로그가 CloudWatch에 연동되지 않은 경우, 로그 통합 기능 구성 적용.
   - name: efs_not_publicly_accessible
-    description: Alert: EFS With public access
+    description: "Alert: EFS With public access"
     resource: aws.security-group
     mode:
       type: periodic
