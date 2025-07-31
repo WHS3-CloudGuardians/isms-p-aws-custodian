@@ -3,7 +3,7 @@ policies:
   # ACTIONPLAN: EventBridge 버스에 크로스 계정 접근이 허용된 구성을 탐지하고 관리자에게 알림을 전송하거나 위험 리소스로 태깅
   - name: eventbridge_bus_cross_account_access
     resource: aws.event-bus
-    description: Alert: eventbridge bus cross account access
+    description: "Alert: eventbridge bus cross account access"
     mode:
       type: periodic
       schedule: "rate(1 hour)"
@@ -36,7 +36,7 @@ policies:
   # ACTIONPLAN: 크로스 계정이나 외부 노출이 가능한 EventBridge 버스를 탐지하고 경고 또는 접근 정책 점검을 유도
   - name: eventbridge_bus_exposed
     resource: aws.event-bus
-    description: Alert: eventbridge bus exposed
+    description: "Alert: eventbridge bus exposed"
     mode:
       type: periodic
       schedule: "rate(1 hour)"
