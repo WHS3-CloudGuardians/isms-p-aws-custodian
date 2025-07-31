@@ -40,9 +40,9 @@ git clone https://github.com/WHS3-CloudGuardians/isms-p-aws-custodian.git
 # isms-p-aws-custodian 경로로 이동 후
 $ pip install -e .
 ```
-
+</br>
 ### 환경 설정
-- 정책을 생성하기 전에 AWS 환경을 세팅하고 .env 파일 구성을 완료하세요. .env파일에 빈 항목이 있으면 정책이 생성되지 않습니다.
+> 정책을 생성하기 전에 AWS 환경을 세팅하고 .env 파일 구성을 완료하세요. .env파일에 빈 항목이 있으면 정책이 생성되지 않습니다.
 
 **AWS 환경 세팅용 테라폼 배포 (선택 사항)**
 ```
