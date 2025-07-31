@@ -27,7 +27,9 @@
 
 ## 사용 방법
 > Prowler, Cloud Custodian의 설치 방법은 설명하지 않습니다. Prowler, Cloud Custodian의 공식 문서 또는 구름수비대 팀 공식 노션을 참고하세요.
+
 ### isms-p-aws-custodian 설치
+
 **Git 리포지토리 클론**
 ```
 git clone https://github.com/WHS3-CloudGuardians/isms-p-aws-custodian.git
@@ -37,7 +39,7 @@ git clone https://github.com/WHS3-CloudGuardians/isms-p-aws-custodian.git
 # isms-p-aws-custodian 경로로 이동 후
 $ pip install -e .
 ```
----
+
 ### 환경 설정
 - 정책을 생성하기 전에 AWS 환경을 세팅하고 .env 파일 구성을 완료하세요. .env파일에 빈 항목이 있으면 정책이 생성되지 않습니다.
 **AWS 환경 세팅용 테라폼 배포 (선택 사항)**
@@ -59,7 +61,6 @@ GOOD_SLACK=https://hooks.slack.com/services/AAA/BBB/CCC
 WARNING_SLACK=https://hooks.slack.com/services/DDD/EEE/FFF
 DANGER_SLACK=https://hooks.slack.com/services/GGG/HHH/III
 ```
----
 
 
 
