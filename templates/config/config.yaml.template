@@ -3,9 +3,9 @@ policies:
   #ACTIONPLAN: AWS Config가 모든 리전에서 리소스를 기록하도록 활성화되어 있는지 확인 (글로벌 보안 모니터링 목적)
   #자동 조치를 위해서는 수동으로 lambda 설정이 필요
   - name: config-recorder-all-regions-enabled
-    resource: aws.config-recorder
     description: |
-      Check whether AWS Config is enabled to record resources in all regions.
+      Check whether AWS Config is enabled to record resources in all regions
+    resource: aws.config-recorder
     mode:
       type: periodic
       schedule: "rate(1 day)"
