@@ -6,7 +6,7 @@ policies:
 # ACTIONPLAN: 특정 AWS 리전에서 Macie가 활성화되어 있지 않은 경우 탐지하여 알림
   - name: macie_is_enabled
     resource: aws.account
-    description: "Alert: Macie is disabled"
+    description: Alert: Macie is disabled
     mode:
       type: periodic
       schedule: "rate(7 days)" 
