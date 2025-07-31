@@ -21,8 +21,8 @@
 2. 
 
 ### 공식 노션
-- [`AWS 보안 및 컴플라이언스 자동화 가이드`]([https://github.com/WHS3-CloudGuardians/Cloud-infra/tree/main/terraform](https://www.notion.so/AWS-23fc86faa56f80ce9865ffe805df09e8?source=copy_link))
-- [`isms-p-aws-custodian 사용 가이드`]([https://github.com/WHS3-CloudGuardians/Cloud-infra/tree/main/terraform](https://www.notion.so/isms-p-aws-custodian-240c86faa56f8074a5f1d0a4378d6f24?source=copy_link))
+- [AWS 보안 및 컴플라이언스 자동화 가이드]([https://github.com/WHS3-CloudGuardians/Cloud-infra/tree/main/terraform](https://www.notion.so/AWS-23fc86faa56f80ce9865ffe805df09e8?source=copy_link))
+- [isms-p-aws-custodian 사용 가이드]([https://github.com/WHS3-CloudGuardians/Cloud-infra/tree/main/terraform](https://www.notion.so/isms-p-aws-custodian-240c86faa56f8074a5f1d0a4378d6f24?source=copy_link))
 ---
 
 ## 사용 방법
