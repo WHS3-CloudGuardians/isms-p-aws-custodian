@@ -2,7 +2,7 @@ policies:
 
   # CHECKID: cloudfront_distributions_field_level_encryption_enabled
   # ACTIONPLAN: CloudFront 필드 수준 암호화 설정 누락 시 보완
-  - name: cloudfront_distributions_field_level_encryption_enabled
+  - name: cloudfront_distributions_field_level_encrypt_enabled
     description: CloudFront distributions field level encryption disabled alert
     resource: aws.distribution
     mode:
@@ -128,7 +128,7 @@ policies:
 # ACTIONPLAN: 지원 종료된 SSL/TLS 프로토콜 사용 중지 및 최신 버전 설정
 # ACTIONPLAN: CloudFront에서 SSL 프로토콜을 TLS 1.2 이상으로 강제 설정
 # ACTIONPLAN: CloudFront 배포에서 지원 중단된 SSL 프로토콜을 제거하고 TLS 1.2 이상으로 설정
-  - name: cloudfront_distributions_using_deprecated_ssl_protocols
+  - name: cloudfront_distributions_using_deprecated_ssl_protocol
     description: cloudfront distributions using legacy ssl protocols alert
     resource: aws.distribution
     mode:
