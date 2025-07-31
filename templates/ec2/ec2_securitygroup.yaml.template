@@ -4,6 +4,7 @@ policies:
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_high_risk_tcp_ports
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_port_mongodb_27017_27018
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_ftp_port_20_21
+  # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_22
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_3389
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_cassandra_7199_9160_8888
   # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_elasticsearch_kibana_9200_9300_5601
@@ -131,43 +132,6 @@ policies:
         transport:
           type: sqs
           queue: ${QUEUE_URL}
-
-  # CHECKID: ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_22
-  # CHECKID: ec2_instance_port_ssh_exposed_to_internet
-  # ACTIONPLAN: 22번 포트(SSH) 0.0.0.0/0 인바운드 실시간 감지/Slack 알림
-  - name: ec2_instance_port_ssh_exposed_to_internet
-    description: |
-      When port 22 (SSH) is opened to 0.0.0.0/0 (all external), there is a high risk of external attacks, so when the rule is detected, send a real-time Slack notification.
-    resource: aws.security-group
-    mode:
-      type: cloudtrail
-      role: ${LAMBDA_ROLE}
-      events:
-        - source: ec2.amazonaws.com
-          event: AuthorizeSecurityGroupIngress
-          ids: "requestParameters.groupId"
-    filters:
-      - type: ingress
-        Cidr:
-          value: 0.0.0.0/0
-        Ports: [22]
-    actions:
-      - type: notify
-        slack_template: slack_default
-        slack_msg_color: danger
-        violation_desc: |
-          *** CHECKID: ec2_instance_port_ssh_exposed_to_internet ***
-          • 22번 포트(SSH)가 0.0.0.0/0(외부 전체)로 오픈된 인바운드 규칙이 탐지되었습니다.
-          • SSH 포트 오픈은 외부 공격 및 무차별 대입 시도에 매우 취약하므로 즉시 점검이 필요합니다.
-        action_desc: |
-          1. 반드시 필요한 경우가 아니라면 SSH 인바운드(22번 포트) 오픈을 제한해 주세요.
-          2. 운영 환경에서는 VPN, Bastion Host 등 안전한 접속 방식을 사용해 주세요.
-        to:
-          - ${DANGER_SLACK}
-        transport:
-          type: sqs
-          queue: ${QUEUE_URL}
-
 
   # # CHECKID: ec2_securitygroup_default_restrict_traffic
   # # ACTIONPLAN: Default Security Group이 0.0.0.0/0 오픈시 Slack 알림 (삭제 X)
