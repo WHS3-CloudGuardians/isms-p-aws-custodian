@@ -550,7 +550,7 @@ policies:
 
   #CHECKID: rds_snapshots_public_access
   #ACTIONPLAN: RDS 수동 스냅샷이 Public으로 노출된 경우 탐지 및 'restore access' 제거
-  - name: rds-snapshot-public-check
+  - name: rds_snapshots_public_access
     resource: aws.rds-snapshot
     description: |
       Find RDS snapshots that are publicly accessible (shared with all AWS accounts).
