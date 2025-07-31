@@ -160,9 +160,9 @@ policies:
           type: sqs
           queue: ${QUEUE_URL}
 
-  # CHECKID: s3_access_logging_enabled
+  # CHECKID: cloudtrail_logs_s3_bucket_access_logging_enabled
   # ACTIONPLAN: S3 Access Logging 비활성 버킷 탐지 시 Slack 알림, 수동 설정 유도
-  - name: s3_access_logging_enabled
+  - name: cloudtrail_logs_s3_bucket_access_logging_enabled
     resource: aws.s3
     description: Notify when S3 bucket access logging is disabled.
     mode:
@@ -182,7 +182,7 @@ policies:
         slack_template: slack_default
         slack_msg_color: danger
         violation_desc: |
-          *** CHECKID: s3_access_logging_enabled ***
+          *** CHECKID: cloudtrail_logs_s3_bucket_access_logging_enabled ***
           • S3 버킷에 Access Logging이 비활성화된 상태로 탐지되었습니다.
         action_desc: |
           1. S3 콘솔에서 해당 버킷의 Access Logging을 활성화하여 접근 이력을 추적하세요.
