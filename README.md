@@ -67,8 +67,7 @@ DANGER_SLACK=https://hooks.slack.com/services/GGG/HHH/III
 
 ### 정책 생성
 **mailer.yaml, enforce-policies.yaml 포함 정책 생성**
-</br>
-최초 1회 필수 실행
+- 최초 1회 필수 실행
 ```
 generate
 ```
