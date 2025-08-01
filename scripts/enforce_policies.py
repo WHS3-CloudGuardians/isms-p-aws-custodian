@@ -4,32 +4,15 @@ import sys
 import subprocess
 from dotenv import load_dotenv
 
-# 사용자 입력 패턴 -> 실제 정책 이름 매핑
-PATTERN_EXCEPTIONS = {
-    # 여러 CHECKID가 하나의 정책으로 매핑
-    'ec2_securitygroup_allow_ingress_from_internet_to_all_ports': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_any_port': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_high_risk_tcp_ports': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_port_mongodb_27017_27018': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_ftp_port_20_21': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_22': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_3389': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_cassandra_7199_9160_8888': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_elasticsearch_kibana_9200_9300_5601': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_kafka_9092': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_memcached_11211': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_mysql_3306': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_oracle_1521_2483': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_postgres_5432': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_redis_6379': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_sql_server_1433_1434': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_telnet_23': 'ec2_securitygroup_allow',
-    'ec2_securitygroup_allow_wide_open_public_ipv4': 'ec2_securitygroup_allow',
-    # CHECKID 축약칭 매핑
-    'account_maintain_different_contact_details_to_security_billing_and_operations':
-        'account_maintain_different_contact_details_security_bill_op',
-    # 추가 매핑은 여기에 계속 정의 가능
-}
+# 사용자 입력 패턴 접두사 매핑 (prefix -> 실제 정책 이름)
+EXCEPTION_PREFIXES = [
+    ('ec2_instance_port_', 'ec2_instance_port'),
+    ('ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_', 'ec2_securitygroup_allow'),
+    ('account_maintain_different_contact_details_to_security_billing_and_operations',
+     'account_maintain_different_contact_details_security_bill_op'),
+    # 추가 매핑 항목을 여기에 넣으세요
+]
+
 
 def main():
     # 1) 프로젝트 루트 및 .env 로드
@@ -66,13 +49,17 @@ def main():
     raw_patterns = args[i:] or ['all']
 
     # 6) all 모드 여부
-    all_mode = raw_patterns[0].lower() == 'all'
+    all_mode = (raw_patterns[0].lower() == 'all')
 
-    # 7) 예외 매핑 적용
+    # 7) 예외 매핑 적용 (prefix 기반)
     patterns = []
     if not all_mode:
         for p in raw_patterns:
-            mapped = PATTERN_EXCEPTIONS.get(p, p)
+            mapped = p
+            for prefix, target in EXCEPTION_PREFIXES:
+                if p.startswith(prefix):
+                    mapped = target
+                    break
             patterns.append(mapped)
 
     # 8) Custodian 커맨드 조립
@@ -94,6 +81,27 @@ def main():
         print('🎉 Custodian run completed successfully!')
     else:
         print('❌ Custodian run failed!', file=sys.stderr)
+    
+    # 10) 메일러 실행 여부 묻기
+    try:
+        answer = input('Would you like to run the mailer (c7n-mailer)? [y/N]: ').strip().lower()
+    except EOFError:
+        answer = 'n'
+    if answer == 'y':
+        mailer_file = os.path.join(root, 'mailer', 'mailer.yaml')
+        if os.path.isfile(mailer_file):
+            print(f'▶ Running c7n-mailer with {mailer_file}')
+            mcmd = ['c7n-mailer', '-c', mailer_file, '--run']
+            mrc = subprocess.run(mcmd).returncode
+            if mrc == 0:
+                print('✅ Mailer executed successfully!')
+            else:
+                print('❌ Mailer execution failed!', file=sys.stderr)
+        else:
+            print(f'Error: mailer config not found: {mailer_file}', file=sys.stderr)
+    else:
+        print('▶ Skipping mailer.')
+
     sys.exit(rc)
 
 if __name__ == '__main__':
