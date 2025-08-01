@@ -33,7 +33,9 @@
 
 **Git 리포지토리 클론**
 ```
-git clone https://github.com/WHS3-CloudGuardians/isms-p-aws-custodian.git
+# git clone https://github.com/WHS3-CloudGuardians/isms-p-aws-custodian.git
+# 테스트용은 아래
+git clone --branch test/python-scripts https://github.com/WHS3-CloudGuardians/isms-p-aws-custodian.git
 ```
 **의존성 설치**
 ```
