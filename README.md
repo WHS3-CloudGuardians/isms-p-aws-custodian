@@ -49,7 +49,9 @@ pip install -e .
 **AWS 환경 세팅용 테라폼 배포 (선택 사항)**
 - 이미 Cloud Custodian 실행을 위한 AWS 환경이 갖춰져 있다면 건너뛰고 진행하세요.
 ```console
-# 더 추가 예정
+cd ./custodian-setup
+```
+```console
 terraform init
 terraform plan
 terraform apply
