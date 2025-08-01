@@ -21,13 +21,13 @@ variable "aws_region" {
 variable "lambda_role_name" {
   description = "Name of the Custodian Lambda IAM role"
   type        = string
-  default     = "whs3-custodian-lambda-role"
+  default     = "custodian-lambda-role"
 }
 
 variable "mailer_role_name" {
   description = "Name of the c7n-mailer IAM role"
   type        = string
-  default     = "whs3-c7n-mailer-role"
+  default     = "c7n-mailer-role"
 }
 
 # ================================
@@ -37,13 +37,13 @@ variable "mailer_role_name" {
 variable "queue_name" {
   description = "Name of the SQS queue for Custodian notifications"
   type        = string
-  default     = "whs3-security-alert-queue"
+  default     = "custodian-alert-queue"
 }
 
 variable "dlq_name" {
   description = "Name of the Dead Letter Queue"
   type        = string
-  default     = "whs3-security-alert-dlq"
+  default     = "custodian-alert-dlq"
 }
 
 variable "message_retention_seconds" {
