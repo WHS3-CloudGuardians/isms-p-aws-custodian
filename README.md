@@ -38,7 +38,7 @@
 git clone --branch test/python-scripts https://github.com/WHS3-CloudGuardians/isms-p-aws-custodian.git
 ```
 **의존성 설치**
-```
+```console
 # isms-p-aws-custodian 경로로 이동 후
 pip install -e .
 ```
@@ -48,14 +48,14 @@ pip install -e .
 
 **AWS 환경 세팅용 테라폼 배포 (선택 사항)**
 - 이미 Cloud Custodian 실행을 위한 AWS 환경이 갖춰져 있다면 건너뛰고 진행하세요.
-```
+```console
 # 더 추가 예정
 terraform init
 terraform plan
 terraform apply
 ```
 **`.env` 파일 구성**
-```
+```console
 # 예시
 ACCOUNT_ID=000123456789
 AWS_REGION=ap-northeast-2
@@ -70,12 +70,12 @@ DANGER_SLACK=https://hooks.slack.com/services/GGG/HHH/III
 ### 정책 생성
 **mailer.yaml, enforce-policies.yaml 포함 정책 생성**
 - 최초 1회 필수 실행
-```
+```console
 generate
 ```
 
 **명령어 예시**
-```
+```console
 # 모든 서비스에 대해 정책 생성
 generate all
 
@@ -92,7 +92,7 @@ generate ec2 s3
 > `enforce-policies.yaml`은 즉각 수동 조치를 할 수 있는 정책 파일입니다. `enforce`명령어로 특정 정책이름(CHECKID)에 대해 즉각 조치를 취할 수 있습니다. 여러 개의 정책이름 입력도 가능합니다.
 
 **모든 정책에 대해 즉각 조치**
-```
+```console
 enforce
 # 또는
 enforce all
@@ -100,7 +100,7 @@ enforce all
 
 **`mailer` 실행**
 - 정책을 실행하고 `y`를 입력해 `mailer`를 실행할 수 있습니다.
-```
+```console
 $ enforce ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_telnet_23
 ▶ Running: custodian run --region ap-northeast-2 -s /home/user/isms-p-aws-custodian/out -p ec2_securitygroup_allow /home/user/isms-p-aws-custodian/enforce/enforce-policies.yaml
 2025-07-31 16:54:05,144: custodian.policy:INFO policy:ec2_securitygroup_allow resource:aws.security-group region:ap-northeast-2 count:0 time:0.00
@@ -108,7 +108,7 @@ $ enforce ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_telnet_23
 Would you like to run the mailer (c7n-mailer)? [y/N]:
 ```
 **명령어 예시**
-```
+```console
 # 특정 CHECKID에 대해 조치
 enforce ec2_ebs_default_encryption
 
@@ -131,11 +131,11 @@ enforce --cache-period=0 -s out elb*
 
 **`mailer`배포**
 - 최초 1회 필수 실행
-```
+```console
 deploy mailer
 ```
 **명령어 예시**
-```
+```console
 # 존재하는 모든 정책 배포
 deploy all
 
