@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 ALIAS_MAP = {
     # Load Balancer
     'elbv2': 'elb',
-    'alb': 'elbv2',
+    'alb': 'elb',
 }
 
 REQUIRED_ENVS = [
