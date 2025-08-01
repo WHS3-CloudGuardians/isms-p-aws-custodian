@@ -142,6 +142,8 @@ deploy mailer
 **명령어 예시**
 ```console
 # 존재하는 모든 정책 배포
+deploy
+# 또는
 deploy all
 
 # 특정 CHECKID에 대해 배포
