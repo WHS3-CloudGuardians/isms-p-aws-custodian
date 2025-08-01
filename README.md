@@ -17,9 +17,9 @@
 - 오픈소스를 기반으로 AWS 환경에서 ISMS-P 중심의 보안 점검 및 대응 자동화 구현
 
 ### 기능
-1. 보안 점검 및 대응 자동화: Prowler로 취약점 점검 -> 점검 결과의 CHECKID와 동일한 이름의 Cloud Custodian 정책으로 취약점 조치
-2. 이벤트 기반 탐지/주기적 탐지로 AWS 환경에서의 ISMS-P 기준 준수
-3. CLI 명령어 제공: 쉽게 Cloud Custodian 정책을 생성하고 배포할 수 있음
+1. 이벤트 기반 탐지/주기적 탐지로 AWS 환경에서의 ISMS-P 기준 준수
+2. **보안 점검 및 대응 자동화**: Prowler로 취약점 점검 -> 점검 결과의 CHECKID와 동일한 이름의 Cloud Custodian 정책으로 취약점 조치
+3. **CLI 명령어 제공**: 쉽게 Cloud Custodian 정책을 생성하고 배포할 수 있음
 
 ### 공식 노션
 - [AWS 보안 및 컴플라이언스 자동화 가이드](https://www.notion.so/AWS-23fc86faa56f80ce9865ffe805df09e8?source=copy_link)
