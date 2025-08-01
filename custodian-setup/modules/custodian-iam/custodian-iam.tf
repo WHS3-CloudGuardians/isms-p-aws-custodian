@@ -42,7 +42,11 @@ resource "aws_iam_role" "custodian_lambda_role" {
     Statement = [
       {
         Effect    = "Allow"
-        Principal = { Service = "lambda.amazonaws.com" }
+        Principal = { Service = [
+          "lambda.amazonaws.com",
+          "events.amazonaws.com",
+          "cloudtrail.amazonaws.com"
+        ] }
         Action    = "sts:AssumeRole"
       }
     ]
@@ -70,10 +74,17 @@ resource "aws_iam_role" "c7n_mailer_role" {
 # ================================
 
 # CloudWatch 로그 기록용 기본 정책 (Lambda용 AWS 관리형)
-resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
+resource "aws_iam_role_policy_attachment" "poweruser_attach" {
   role       = aws_iam_role.custodian_lambda_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
 }
+
+# PowerUserAccess만으로 권한이 모자랄 시 주석을 풀고 활성화하세요.
+#resource "aws_iam_role_policy_attachment" "admin_policy" {
+#  role       = aws_iam_role.custodian_lambda_role.name
+#  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+#}
+
 
 resource "aws_iam_role_policy_attachment" "mailer_basic_execution" {
   role       = aws_iam_role.c7n_mailer_role.name
@@ -85,8 +96,8 @@ resource "aws_iam_role_policy_attachment" "mailer_basic_execution" {
 # ================================
 
 # 1. 리소스 조회 권한
-resource "aws_iam_role_policy" "custodian_lambda_read_policy" {
-  name = "${var.lambda_role_name}-read-policy"
+resource "aws_iam_role_policy" "custodian_iam_policy" {
+  name = "${var.lambda_role_name}-iam-policy"
   role = aws_iam_role.custodian_lambda_role.id
   
   policy = jsonencode({
@@ -94,112 +105,9 @@ resource "aws_iam_role_policy" "custodian_lambda_read_policy" {
     Statement = [{
       Effect = "Allow"
       Action = [
-        "ec2:Describe*",
-        "s3:GetBucket*",
-        "s3:ListBucket*",
-        "s3:GetObject*",
-        "rds:Describe*",
-        "lambda:List*",
-        "lambda:Get*",
-        "ec2:DescribeVolumes",
-        "ec2:DescribeSnapshots",
-        "cloudwatch:GetMetricStatistics",
-        "cloudwatch:ListMetrics",
-        "iam:ListRoles",
-        "iam:ListUsers",
-        "iam:GetRole",
-        "iam:GetUser",
-        "cloudtrail:LookupEvents",
-        "cloudtrail:GetTrailStatus",
-        "cloudtrail:DescribeTrails",
-        "events:ListRules",
-        "events:DescribeRule"
+        "iam:ListAccountAliases"
       ]
       Resource = "*"
-    }]
-  })
-}
-
-# 2. 자동조치(Write) 권한
-resource "aws_iam_role_policy" "custodian_lambda_action_policy" {
-  name = "${var.lambda_role_name}-action-policy"
-  role = aws_iam_role.custodian_lambda_role.id
-  
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Action = [
-        "ec2:StopInstances",
-        "ec2:StartInstances",
-        "ec2:RebootInstances",
-        "ec2:TerminateInstances",
-        "ec2:CreateTags",
-        "ec2:DeleteTags",
-        "ec2:CreateSnapshot",
-        "ec2:DeleteSnapshot",
-        "ec2:DeleteVolume",
-        "ec2:AuthorizeSecurityGroupIngress",
-        "ec2:RevokeSecurityGroupIngress",
-        "ec2:AuthorizeSecurityGroupEgress",
-        "ec2:RevokeSecurityGroupEgress",
-        "s3:PutBucketPolicy",
-        "s3:PutBucketAcl",
-        "s3:PutBucketVersioning",
-        "s3:PutBucketEncryption",
-        "s3:DeleteObject",
-        "s3:DeleteBucket",
-        "lambda:UpdateFunctionConfiguration",
-        "lambda:DeleteFunction",
-        "rds:StopDBInstance",
-        "rds:StartDBInstance",
-        "rds:RebootDBInstance",
-        "rds:CreateDBSnapshot",
-        "rds:DeleteDBInstance"
-      ]
-      Resource = "*"
-    }]
-  })
-}
-
-# 3. CloudWatch 로그 기록 권한
-resource "aws_iam_role_policy" "custodian_lambda_logs_policy" {
-  name = "${var.lambda_role_name}-logs-policy"
-  role = aws_iam_role.custodian_lambda_role.id
-  
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Action = [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents",
-        "logs:DescribeLogGroups",
-        "logs:DescribeLogStreams"
-      ]
-      Resource = "arn:aws:logs:${var.aws_region}:${var.account_id}:log-group:/aws/lambda/custodian-*"
-    }]
-  })
-}
-
-# 4. SQS 권한 (Slack 알림 연동용)
-resource "aws_iam_role_policy" "custodian_lambda_sqs_access" {
-  name = "${var.lambda_role_name}-sqs-access"
-  role = aws_iam_role.custodian_lambda_role.id
-  
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Action = [
-        "sqs:SendMessage",
-        "sqs:ReceiveMessage",
-        "sqs:DeleteMessage",
-        "sqs:GetQueueAttributes",
-        "sqs:GetQueueUrl"
-      ]
-      Resource = var.sqs_queue_arn
     }]
   })
 }
@@ -208,7 +116,7 @@ resource "aws_iam_role_policy" "custodian_lambda_sqs_access" {
 # IAM Inline Policies - Mailer
 # ================================
 
-# 5. SES 권한 (Slack 대체 이메일 알림용)
+# 2. SES 권한 (Slack 대체 이메일 알림용)
 resource "aws_iam_role_policy" "mailer_ses_policy" {
   name = "${var.mailer_role_name}-ses-policy"
   role = aws_iam_role.c7n_mailer_role.id
@@ -228,7 +136,7 @@ resource "aws_iam_role_policy" "mailer_ses_policy" {
   })
 }
 
-# 6. CloudWatch 로그 기록 권한
+# 3. CloudWatch 로그 기록 권한
 resource "aws_iam_role_policy" "mailer_logs_policy" {
   name = "${var.mailer_role_name}-logs-policy"
   role = aws_iam_role.c7n_mailer_role.id
@@ -247,7 +155,7 @@ resource "aws_iam_role_policy" "mailer_logs_policy" {
   })
 }
 
-# 7. SQS 권한 (알림 수신)
+# 4. SQS 권한 (알림 수신)
 resource "aws_iam_role_policy" "mailer_sqs_access" {
   name = "${var.mailer_role_name}-sqs-access"
   role = aws_iam_role.c7n_mailer_role.id
@@ -265,41 +173,6 @@ resource "aws_iam_role_policy" "mailer_sqs_access" {
       Resource = var.sqs_queue_arn
     }]
   })
-}
-
-# ================================
-# Admin IAM Role with Full Access
-# ================================
-
-resource "aws_iam_role" "admin_role" {
-  name = "admin-role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Principal = {
-          Service = [
-            "ec2.amazonaws.com",
-            "lambda.amazonaws.com",
-            "ecs-tasks.amazonaws.com",
-            "codebuild.amazonaws.com",
-            "states.amazonaws.com",
-            "ssm.amazonaws.com",
-            "glue.amazonaws.com",
-            "eks.amazonaws.com"
-          ]
-        },
-        Action = "sts:AssumeRole"
-      }
-    ]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "admin_policy" {
-  role       = aws_iam_role.admin_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 # ================================
