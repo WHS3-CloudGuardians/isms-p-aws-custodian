@@ -152,8 +152,6 @@ deploy ec2*
 deploy -s . ec2_ebs* vpc_flow_logs_enabled
 deploy --dryrun -s out s3*
 
-# 정책이 잘 탐지되지 않을 경우 cache를 비우면서 실행해 보세요.
-deploy --cache-period=0 -s out elb* 
 ```
 </br>
 
