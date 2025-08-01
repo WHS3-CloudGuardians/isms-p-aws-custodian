@@ -58,6 +58,7 @@ terraform plan
 terraform apply
 ```
 **`.env` 파일 구성**
+- 정책을 생성하기 전에 자신의 환경에 맞게 모든 항목을 전부 채워넣어 주세요. 
 ```console
 # 예시
 ACCOUNT_ID=000123456789
