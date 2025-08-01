@@ -28,6 +28,7 @@
 
 ## 사용 방법
 > Prowler, Cloud Custodian의 설치 방법은 설명하지 않습니다. Prowler, Cloud Custodian의 공식 문서 또는 구름수비대 팀 공식 노션을 참고하세요.
+> custodian 가상 환경이 꺼져있다면 `source custodian/bin/activate`를 입력해 활성화하세요.
 
 ### isms-p-aws-custodian 설치
 
@@ -89,7 +90,6 @@ generate ec2 s3
 ```
 
 ---
->> custodian 가상 환경이 꺼져있다면 `source custodian/bin/activate`를 입력해 활성화하세요.
 
 ### 수동 조치 방법
 > `enforce-policies.yaml`은 즉각 수동 조치를 할 수 있는 정책 파일입니다. `enforce`명령어로 특정 정책이름(CHECKID)에 대해 즉각 조치를 취할 수 있습니다. 여러 개의 정책이름 입력도 가능합니다.
