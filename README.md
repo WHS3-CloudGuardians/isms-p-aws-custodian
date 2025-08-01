@@ -45,6 +45,8 @@ pip install -e .
 > 정책을 생성하기 전에 AWS 환경을 세팅하고 .env 파일 구성을 완료하세요. .env파일에 빈 항목이 있으면 정책이 생성되지 않습니다.
 
 **AWS 환경 세팅용 테라폼 배포 (선택 사항)**
+</br>
+이미 Cloud Custodian 실행을 위한 AWS 환경이 갖춰져 있다면 건너뛰고 진행하세요.
 ```
 # 더 추가 예정
 terraform init
@@ -66,6 +68,7 @@ DANGER_SLACK=https://hooks.slack.com/services/GGG/HHH/III
 
 ### 정책 생성
 **mailer.yaml, enforce-policies.yaml 포함 정책 생성**
+</br>
 최초 1회 필수 실행
 ```
 generate
@@ -96,6 +99,7 @@ enforce all
 ```
 
 **`mailer` 실행**
+</br>
 정책을 실행하고 `y`를 입력해 `mailer`를 실행할 수 있습니다.
 ```
 $ enforce ec2_securitygroup_allow_ingress_from_internet_to_tcp_port_telnet_23
@@ -127,6 +131,7 @@ enforce --cache-period=0 -s out elb*
 > `deploy` 명령어를 입력하여 정책을 람다 배포할 수 있습니다.
 
 **`mailer`배포**
+</br>
 최초 1회 필수 실행
 ```
 deploy mailer
