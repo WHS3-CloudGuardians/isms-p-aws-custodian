@@ -93,8 +93,8 @@ resource "aws_s3_bucket_policy" "trail_bucket_policy" {
 # CloudTrail Configuration
 # ================================
 
-resource "aws_cloudtrail" "custodian_whs_trail" {
-  name                          = "custodian-whs-trail"
+resource "aws_cloudtrail" "custodian_security_trail" {
+  name                          = "custodian-security-trail"
   s3_bucket_name                = aws_s3_bucket.trail_bucket.bucket
   include_global_service_events = true
   is_multi_region_trail         = true
@@ -127,5 +127,5 @@ output "trail_bucket_arn" {
 
 output "cloudtrail_arn" {
   description = "ARN of the CloudTrail"
-  value       = aws_cloudtrail.custodian_whs_trail.arn
+  value       = aws_cloudtrail.custodian-security-trail.arn
 }
