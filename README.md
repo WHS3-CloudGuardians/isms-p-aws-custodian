@@ -32,7 +32,7 @@
 ### isms-p-aws-custodian 설치
 
 **Git 리포지토리 클론**
-```
+```console
 # git clone https://github.com/WHS3-CloudGuardians/isms-p-aws-custodian.git
 # 테스트용은 아래
 git clone --branch test/python-scripts https://github.com/WHS3-CloudGuardians/isms-p-aws-custodian.git
