@@ -18,20 +18,21 @@ policies:
       - type: update
         config:
           EnforceWorkGroupConfiguration: true
-          ResultConfigurationUpdates:
-            OutputLocation: "s3://noncompl-athena-no-encryption/results/"
-            EncryptionConfiguration:
-              EncryptionOption: SSE_S3
+     # s3 버킷 생성 후 주석을 풀고 활성화 하세요.
+     #     ResultConfigurationUpdates:
+     #       OutputLocation: "s3://noncompl-athena-no-encryption/results/"
+     #       EncryptionConfiguration:
+     #         EncryptionOption: SSE_S3
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_coler: warning
         violation_desc: |
           *** CHECKID: athena_workgroup_encryption ***
            • Athena 워크그룹이 쿼리 결과 암호화를 사용하지 않고 있습니다.
         action_desc: |
           1. Athena 워크그룹이 쿼리 결과 암호화를 활성화하여 민감한 데이터가 저장 시 보호되도록 합니다.
         to:
-          - ${GOOD_SLACK}
+          - ${WARNING_SLACK}
         transport:
           type: sqs
           queue: ${QUEUE_URL}

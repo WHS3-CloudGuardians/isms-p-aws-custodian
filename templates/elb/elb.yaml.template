@@ -48,7 +48,7 @@ policies:
         - source: elasticloadbalancing.amazonaws.com
           event: CreateLoadBalancer
           ids: "responseElements.loadBalancers[].loadBalancerArn"
-        # 2) 속성 수정할 때
+        # 2 속성 수정할 때
         - source: elasticloadbalancing.amazonaws.com
           event: ModifyLoadBalancerAttributes
           ids: "requestParameters.loadBalancerArn"
@@ -58,11 +58,11 @@ policies:
         op: eq
         value: monitor
     actions:
-      # 1) monitoring → defensive 로 자동 변경 (선택)
+      # 1 monitoring → defensive 로 자동 변경 (선택)
       - type: modify-attributes
         attributes:
           routing.http.desync_mitigation_mode: defensive
-      # 2) Slack 알림
+      # 2 Slack 알림
       - type: notify
         slack_template: slack_default
         slack_msg_color: good
@@ -225,7 +225,6 @@ policies:
       schedule: "rate(7 days)"
       role: ${LAMBDA_ROLE}
     filters:
-      # 액세스 로깅이 비활성화된 ALB만 선택
       - type: is-not-logging
     actions:
       - type: notify

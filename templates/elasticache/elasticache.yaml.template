@@ -112,7 +112,7 @@ policies:
 
   #CHECKID: elasticache_redis_cluster_in_transit_encryption_enabled
   #ACTIONPLAN: ElastiCache Redis 캐시 클러스터에 전송 중 암호화가 비활성화된 경우, 활성화하여 데이터 통신의 보안을 강화합니다.
-  - name: elasticache_redis_cluster_in_transit_encryption_enabled
+  - name: elasticache_redis_cluster_in_transit_encrypt_enabled
     resource: aws.elasticache-group
     description: |
       Detect Replication Groups where in-transit encryption is disabled.

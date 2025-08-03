@@ -79,7 +79,7 @@ policies:
       Automatically copy tags from RDS instances to snapshots to facilitate resource identification and management.
     mode:
       type: periodic
-      schedule: "rate(1 day)"
+      schedule: "rate(7 days)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -181,7 +181,7 @@ policies:
       Identify RDS instances running unsupported engine versions and automatically upgrade them to the latest supported version to maintain stability.
     mode:
       type: periodic
-      schedule: "rate(1 day)"
+      schedule: "rate(30 days)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -211,7 +211,7 @@ policies:
   - name: rds_instance_enhanced_monitoring_enabled
     resource: aws.rds
     description: |
-      모든 RDS 인스턴스에서 enhanced monitoring 활성화
+      Enable enhanced monitoring on all RDS instances
     mode:
       type: periodic
       schedule: "rate(1 day)"
@@ -421,7 +421,7 @@ policies:
   - name: rds_instance_no_public_access
     resource: aws.rds
     description: |
-      공개 접근이 활성화된 RDS 인스턴스를 찾아 PubliclyAccessible 속성을 비활성화하여 외부 노출을 차단
+      Find RDS instances with public access enabled and disable the PubliclyAccessible property to prevent external exposure
     mode:
       type: periodic
       schedule: "rate(1 day)"
@@ -459,7 +459,7 @@ policies:
       Identify RDS instances with unencrypted storage and send notifications for manual remediation.
     mode:
       type: periodic
-      schedule: "rate(1 day)"
+      schedule: "rate(1 hour)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -485,7 +485,7 @@ policies:
   - name: rds_instance_transport_encrypted
     resource: aws.rds
     description: |
-      SSL이 미설정된 인스턴스와 최신 CA가 아닌 인스턴스를 찾아 최신 RDS CA로 지정하여 모든 클라이언트 연결에 SSL/TLS를 강제하고, 관리팀에 알림
+      Find instances that do not have SSL configured and instances that do not have the latest CA, and designate them as the latest RDS CA to enforce SSL/TLS for all client connections
     mode:
       type: periodic
       schedule: "rate(1 day)"
@@ -527,7 +527,7 @@ policies:
       Find RDS snapshots that are not encrypted.
     mode:
       type: periodic
-      schedule: "rate(1 day)"
+      schedule: "rate(2 hours)"
       role: ${LAMBDA_ROLE}
     filters:
       - type: value
@@ -550,7 +550,7 @@ policies:
 
   #CHECKID: rds_snapshots_public_access
   #ACTIONPLAN: RDS 수동 스냅샷이 Public으로 노출된 경우 탐지 및 'restore access' 제거
-  - name: rds-snapshot-public-check
+  - name: rds_snapshots_public_access
     resource: aws.rds-snapshot
     description: |
       Find RDS snapshots that are publicly accessible (shared with all AWS accounts).

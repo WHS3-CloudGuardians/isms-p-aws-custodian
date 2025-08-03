@@ -1,7 +1,7 @@
 policies:
 
-# CHECKID: networkfirewall_in_all_vpc
-# ACTIONPLAN: 네트워크 방화벽이 없는 VPC는 방화벽을 배포하여 인바운드 및 아웃바운드 트래픽을 필터링합니다.
+  # CHECKID: networkfirewall_in_all_vpc
+  # ACTIONPLAN: 네트워크 방화벽이 없는 VPC를 탐지
   - name: networkfirewall_in_all_vpc
     description: Alert on VPCs without AWS Network Firewall deployed
     resource: aws.vpc

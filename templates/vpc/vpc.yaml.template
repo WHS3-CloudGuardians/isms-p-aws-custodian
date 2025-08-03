@@ -48,7 +48,6 @@ policies:
     #    iam-role-arn: 채워넣기
     #    traffic-type: all
     #    max-aggregation-interval: 60
-      # 2) Slack 알림
       - type: notify
         slack_template: slack_default
         slack_msg_color: danger
@@ -64,8 +63,8 @@ policies:
           type: sqs
           queue: ${QUEUE_URL}
 
-# CHECKID: vpc_subnet_different_az
-# ACTIONPLAN: VPC가 단일 가용 영역에만 서브넷을 가진 경우, 여러 가용 영역에 서브넷을 추가합니다.
+  # CHECKID: vpc_subnet_different_az
+  # ACTIONPLAN: VPC가 단일 가용 영역에만 서브넷을 가진 경우, 여러 가용 영역에 서브넷을 추가합니다.
   - name: vpc_subnet_different_az
     description: Alert on VPCs with subnets in only one availability zone
     resource: aws.vpc
@@ -108,10 +107,10 @@ policies:
         op: eq
         value: true
     actions:
-    # 1) 기본 퍼블릭 IP 할당 비활성화 (서비스에 영향이 있다면 주석 처리)
+    # 1 기본 퍼블릭 IP 할당 비활성화 (서비스에 영향이 있다면 주석 처리)
       - type: modify
         MapPublicIpOnLaunch: false
-    # 2) Slack 알림
+    # 2 Slack 알림
       - type: notify
         slack_template: slack_default
         slack_msg_color: good
@@ -137,12 +136,12 @@ policies:
       schedule: "rate(7 days)"
       role: ${LAMBDA_ROLE}
     filters:
-    # 1) 하나 이상의 public 서브넷이 있는 VPC
+    # 1 하나 이상의 public 서브넷이 있는 VPC
       - type: subnet
         key: MapPublicIpOnLaunch
         op: eq
         value: true
-    # 2) private 서브넷이 전혀 없는 VPC
+    # 2 private 서브넷이 전혀 없는 VPC
       - not:
         - type: subnet
           key: MapPublicIpOnLaunch
