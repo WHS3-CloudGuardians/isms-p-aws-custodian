@@ -6,7 +6,7 @@
 [![화이트햇 스쿨](https://img.shields.io/badge/화이트햇_스쿨_3기-blueviolet?style=flat)]()  
 [![구름수비대](https://img.shields.io/badge/구름수비대-팀-blue?style=flat&logo=cloud)]()
 [![버전](https://img.shields.io/badge/version-0.1.0-green?style=flat&logo=cloud)]()
-[![라이센스](https://img.shields.io/github/license/WHS3-CloudGuardians/isms-p-aws-custodian)]
+[라이센스](https://img.shields.io/github/license/WHS3-CloudGuardians/isms-p-aws-custodian)
 
 github/license
 </div>
