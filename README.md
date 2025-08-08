@@ -1,7 +1,7 @@
 <div align="center">
   
 # isms-p-aws-custodian 
-### AWS 환경에서의 ISMS-P 기반 취약점 조치 자동화 오픈소스
+### Prowler&CloudCustodian을 활용한 AWS 환경에서의 ISMS-P 기반 취약점 조치 자동화 오픈소스
 
 [![화이트햇 스쿨](https://img.shields.io/badge/화이트햇_스쿨_3기-blueviolet?style=flat)]()  
 [![구름수비대](https://img.shields.io/badge/구름수비대-팀-blue?style=flat&logo=cloud)]()
