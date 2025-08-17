@@ -10,10 +10,15 @@ policies:
       schedule: "rate(1 day)"
       role: ${LAMBDA_ROLE}
     filters:
-      - type: value
-        key: Configuration.ResultConfiguration.EncryptionConfiguration.EncryptionOption
-        op: ne
-        value: SSE_S3
+      - or:
+          - type: value
+            key: Configuration.ResultConfiguration.EncryptionConfiguration.EncryptionOption
+            op: ne
+            value: SSE_S3
+          - type: value
+            key: Configuration.ResultConfiguration.EncryptionConfiguration.EncryptionOption
+            op: eq
+            value: null
     actions:
       - type: update
         config:
@@ -25,7 +30,7 @@ policies:
      #         EncryptionOption: SSE_S3
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: athena_workgroup_encryption ***
            • Athena 워크그룹이 쿼리 결과 암호화를 사용하지 않고 있습니다.
@@ -58,7 +63,7 @@ policies:
           EnforceWorkGroupConfiguration: true
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: athena_workgroup_enforce_configuration ***
           • Athena 워크그룹이 구성 적용 옵션을 사용하지 않습니다.

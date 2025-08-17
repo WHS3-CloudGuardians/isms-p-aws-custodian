@@ -11,9 +11,15 @@ policies:
       schedule: "rate(1 day)"
       role: ${LAMBDA_ROLE}
     filters:
-      - type: value
-        key: RequireClientCertificate
-        value: false
+      - or:
+          - type: value
+            key: RequireClientCertificate
+            op: eq
+            value: false
+          - type: value
+            key: RequireClientCertificate
+            op: eq
+            value: null
     actions:
       - type: notify
         slack_template: slack_default
@@ -41,9 +47,15 @@ policies:
       schedule: "rate(1 day)"
       role: ${LAMBDA_ROLE}
     filters:
-      - type: value
-        key: AccessLogSettings.DestinationArn
-        value: null
+      - or:
+          - type: value
+            key: AccessLogSettings.DestinationArn
+            op: eq
+            value: null
+          - type: value
+            key: AccessLogSettings.Format
+            op: eq
+            value: null
     actions:
       - type: notify
         slack_template: slack_default
@@ -72,6 +84,9 @@ policies:
       role: ${LAMBDA_ROLE}
     filters:
       - type: cross-account
+        whitelist:
+        #  - "123456789012"  # 필요 시, 자사 계정 ID나
+        #  - "111122223333"  # 신뢰된 파트너 계정 등 설정 
     actions:
       - type: notify
         slack_template: slack_default

@@ -44,7 +44,7 @@ policies:
   #  actions:
   #    - type: notify
   #      slack_template: slack_default
-  #      slack_msg_coler: warning
+  #      slack_msg_color: warning
   #      violation_desc: |
   #        *** CHECKID: account_maintain_current_contact_details ***
   #        • AWS 계정의 연락처 정보가 최신이 아닙니다.
@@ -79,7 +79,7 @@ policies:
   #  actions:
   #    - type: notify
   #      slack_template: slack_default
-  #      slack_msg_coler: warning
+  #      slack_msg_color: warning
   #      violation_desc: |
   #        *** CHECKID: account_maintain_different_contact_details_to_security_billing_and_operations ***
   #        • 보안, 결제, 운영 담당 팀의 연락처 세부 정보가 동일합니다.
@@ -105,7 +105,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: account_security_contact_information_is_registered ***
           • AWS 계정에 보안 연락처 정보가 등록되지 않았습니다.
@@ -131,7 +131,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: danger
+        slack_msg_color: danger
         violation_desc: |
           *** CHECKID: account_security_questions_are_registered_in_the_aws_account ***
           • AWS 계정에 보안 질문이 설정되지 않았습니다.
@@ -241,7 +241,7 @@ policies:
         #      EncryptionOption: SSE_S3
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: athena_workgroup_encryption ***
            • Athena 워크그룹이 쿼리 결과 암호화를 사용하지 않고 있습니다.
@@ -270,7 +270,7 @@ policies:
           EnforceWorkGroupConfiguration: true
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: athena_workgroup_enforce_configuration ***
           • Athena 워크그룹이 구성 적용 옵션을 사용하지 않습니다.
@@ -903,7 +903,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: config_recorder_all_regions_enabled ***
           • Config recorder가 모든 리전을 기록하지 않습니다.
@@ -1806,7 +1806,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: danger
+        slack_msg_color: danger
         violation_desc: |
           *** CHECKID: elasticache_cluster_uses_public_subnet ***
           • ElastiCache에서 사용 중인 서브넷 정보입니다. 후처리로 퍼블릭 여부를 매칭하세요.
@@ -1836,7 +1836,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: elasticache_redis_cluster_auto_minor_version_upgrades ***
           • ElastiCache Redis Replication Group에 마이너 버전 자동 업그레이드가 비활성화되어 있습니다.
@@ -1866,7 +1866,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: elasticache_redis_cluster_backup_enabled ***
           • ElastiCache Redis Replication Group에 자동 백업이 비활성화되어 있습니다.
@@ -1896,7 +1896,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: danger
+        slack_msg_color: danger
         violation_desc: |
           *** CHECKID: elasticache_redis_cluster_in_transit_encryption_enabled ***
           • ElastiCache Redis Replication Group에 전송 중 암호화가 비활성화되어 있습니다.
@@ -1925,7 +1925,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: elasticache_redis_cluster_multi_az_enabled ***
           • ElastiCache Redis Replication Group에 Multi-AZ가 비활성화되어 있습니다.
@@ -1955,7 +1955,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: danger
+        slack_msg_color: danger
         violation_desc: |
           *** CHECKID: elasticache_redis_cluster_rest_encryption_enabled ***
           • ElastiCache Redis Replication Group에 저장 시 암호화가 비활성화되어 있습니다.
@@ -2236,7 +2236,7 @@ policies:
       - type: terminate
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: emr_cluster_account_public_block_enabled ***
           • EMR의 퍼블릭 액세스 차단이 비활성화되어 있습니다.
@@ -3401,7 +3401,7 @@ policies:
         value: "true"
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: kms_cmk_are_used ***
           • 90일 이상 사용되지 않은 KMS 키가 발견되었습니다.
@@ -3425,7 +3425,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: kms_key_not_publicly_accessible ***
           • KMS 키 정책이 외부에 노출된 상태입니다.
@@ -3454,7 +3454,7 @@ policies:
         value: "true"
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: kms_cmk_not_deleted_unintentionally ***
           • 의도치 않은 cmk 삭제가 발생할 수 있습니다.
@@ -3484,7 +3484,7 @@ policies:
         state: true
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: kms_cmk_rotation_enabled ***
           • CMK의 키 자동 회전 기능이 비활성화되어 있습니다.
@@ -3586,7 +3586,7 @@ policies:
                     - ap-northeast-2
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: organizations_scp_check_deny_regions ***
           • 허가되지 않은 리전 사용 차단에 대한 SCP가 적용되지 않았습니다.
@@ -3625,7 +3625,7 @@ policies:
                   - "2001"
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: organizations_tags_policies_enabled_and_attached ***
           • 태그 정책이 비활성화되어있습니다.
@@ -3654,7 +3654,7 @@ policies:
             value: 7
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: rds_instance_backup_enabled ***
           • RDS 인스턴스에 백업이 비활성화되어 있습니다.
@@ -3688,7 +3688,7 @@ policies:
             value: true
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: rds_instance_certificate_expiration ***
           • 만료된 RDS 인증서가 발견되었습니다.
@@ -3715,7 +3715,7 @@ policies:
       - type: set-snapshot-copy-tags
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: rds_instance_copy_tags_to_snapshots ***
           • RDS 인스턴스에 태그 복사 기능이 비활성화되어 있습니다.
@@ -3748,7 +3748,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: rds_instance_default_admin ***
           • RDS 인스턴스의 마스터 사용자 이름이 admin, postgres 등 추측하기 쉬운 기본값입니다.
@@ -3778,7 +3778,7 @@ policies:
             value: true
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: rds_instance_deletion_protection ***
           • RDS 인스턴스에서 삭제 보호가 비활성화되어 있습니다.
@@ -3808,7 +3808,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: rds_instance_deprecated_engine_version ***
           • 지원이 중단된 엔진 버전을 사용하는 RDS 인스턴스가 존재합니다.
@@ -3839,7 +3839,7 @@ policies:
       #      value: arn:aws:iam::${ACCOUNT_ID}:role/rds-monitoring-role
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: rds_instance_enhanced_monitoring_enabled ***
           • RDS 인스턴스의 enhanced monitoring이 비활성화되어 있습니다.
@@ -3871,7 +3871,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: rds_instance_event_subscription_security_groups ***
           • RDS 이벤트 구독이 DB security group change 등 중요 이벤트를 포함하지 않습니다.
@@ -3900,7 +3900,7 @@ policies:
             value: true
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: rds_instance_iam_authentication_enabled ***
           • IAM 인증이 비활성화된 RDS 인스턴스가 존재합니다.
@@ -3934,7 +3934,7 @@ policies:
                 - slowquery
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: rds_instance_integration_cloudwatch_logs ***
           • RDS 로그가 CloudWatch에 연동되어 있지 않습니다.
@@ -3965,7 +3965,7 @@ policies:
             value: true
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: rds_instance_minor_version_upgrade_enabled ***
           • RDS 인스턴스의 마이너 버전 자동 업그레이드가 비활성화되어 있습니다.
@@ -3994,7 +3994,7 @@ policies:
             value: true
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: rds_instance_multi_az ***
           • Multi-AZ 배포가 비활성화된 RDS 인스턴스가 존재합니다.
@@ -4025,7 +4025,7 @@ policies:
         immediate: true
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: good
+        slack_msg_color: good
         violation_desc: |
           *** CHECKID: rds_instance_no_public_access ***
           • 퍼블릭 액세스가 가능한 RDS 인스턴스가 존재합니다.
@@ -4050,7 +4050,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: rds_instance_storage_encrypted ***
           • 암호화되지 않은 RDS 인스턴스 스토리지가 존재합니다.
@@ -4084,7 +4084,7 @@ policies:
             value: rds-ca-rsa2048-g1
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: rds_instance_transport_encrypted ***
           • RDS 인스턴스의 CA 인증서가 최신(rds-ca-2019)이 아닙니다.
@@ -4110,7 +4110,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: rds_snapshots_encrypted ***
           • RDS 스냅샷이 암호화되지 않았습니다.
@@ -4137,7 +4137,7 @@ policies:
         remove: ["all"]
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: danger
+        slack_msg_color: danger
         violation_desc: |
           *** CHECKID: rds_snapshots_public_access ***
           • RDS 스냅샷이 퍼블릭으로 공개되어 있습니다.

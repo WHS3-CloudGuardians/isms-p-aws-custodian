@@ -21,7 +21,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: config_recorder_all_regions_enabled ***
           • Config recorder가 모든 리전을 기록하지 않습니다.

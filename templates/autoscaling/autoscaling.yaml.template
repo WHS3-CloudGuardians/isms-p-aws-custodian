@@ -25,6 +25,7 @@ policies:
         action_desc: |
           1. 서비스 고가용성 확보를 위해 ASG를 2개 이상의 AZ에 분산 배포해 주세요.
           2. 배포 템플릿/IaC에서도 AZ 분산이 누락되지 않도록 점검해 주세요.
+          3. CloudFormation, Terraform 등의 IaC 템플릿을 사용한다면 `VPCZoneIdentifier`에 여러 Subnet이 포함되었는지 확인하세요.
         to:
           - ${WARNING_SLACK}
         transport:
