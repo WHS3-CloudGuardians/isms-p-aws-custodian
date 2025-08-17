@@ -18,7 +18,7 @@ policies:
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: account_maintain_current_contact_details ***
           • AWS 계정의 연락처 정보가 최신이 아닙니다.
@@ -44,20 +44,23 @@ policies:
       - or:
           - type: value
             key: ContactInformation.SecurityContact
+            value_type: expression
+            value: "account.ContactInformation.BillingContact"
             op: eq
-            value: "security1@example.com"
+          - type: value
+            key: ContactInformation.SecurityContact
+            value_type: expression
+            value: "account.ContactInformation.OperationsContact"
+            op: eq
           - type: value
             key: ContactInformation.BillingContact
+            value_type: expression
+            value: "account.ContactInformation.OperationsContact"
             op: eq
-            value: "security2@example.com"
-          - type: value
-            key: ContactInformation.OperationsContact
-            op: eq
-            value: "security3@example.com"
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: account_maintain_different_contact_details_to_security_billing_and_operations ***
           • 보안, 결제, 운영 담당 팀의 연락처 세부 정보가 동일합니다.
@@ -80,14 +83,19 @@ policies:
       schedule: "rate(7 days)"
       role: ${LAMBDA_ROLE}
     filters:
-      - type: value
-        key: ContactInformation.SecurityContact
-        op: eq
-        value: ""
+      - or:
+          - type: value
+            key: ContactInformation.SecurityContact
+            op: eq
+            value: ""
+          - type: value
+            key: ContactInformation.SecurityContact
+            op: eq
+            value: null
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: warning
+        slack_msg_color: warning
         violation_desc: |
           *** CHECKID: account_security_contact_information_is_registered ***
           • AWS 계정에 보안 연락처 정보가 등록되지 않았습니다.
@@ -110,14 +118,19 @@ policies:
       schedule: "rate(7 days)"
       role: ${LAMBDA_ROLE}
     filters:
-      - type: value
-        key: ContactInformation.SecurityQuestion
-        op: eq
-        value: ""
+      - or:
+          - type: value
+            key: ContactInformation.SecurityQuestion
+            op: eq
+            value: ""
+          - type: value
+            key: ContactInformation.SecurityQuestion
+            op: eq
+            value: null
     actions:
       - type: notify
         slack_template: slack_default
-        slack_msg_coler: danger
+        slack_msg_color: danger
         violation_desc: |
           *** CHECKID: account_security_questions_are_registered_in_the_aws_account ***
           • AWS 계정에 보안 질문이 설정되지 않았습니다.
