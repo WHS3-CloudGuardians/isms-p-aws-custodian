@@ -40,7 +40,7 @@ Cloud Custodian을 통해 자동 탐지·알림·조치가 가능하도록 정�
 
 | No. | 서비스 | 정책명 | 설명 | 리소스 | 모드 | 조치 | 알림색상 | 위험도 | 조치기간 | 트리거조건 | 템플릿 파일 |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 1-01 | accessanalyzer | accessanalyzer_enabled | Access Analyzer가 계정에 활성화되어 있는지 점검 | aws.account | periodic | notify-only | 🟠 경고 (warning) | 중 | 중기 | 주기 점검 시 정책 조건 위반 | accessanalyzer.yaml.template |
+| 1-01 | accessanalyzer | accessanalyzer_enabled | Access Analyzer가 계정에<br>활성화되어 있는지 점검 | aws.account | periodic | notify-only | 🟠 경고 (warning) | 중 | 중기 | 주기 점검 시 정책 조건 위반 | accessanalyzer.yaml.template |
 | 1-02 | account | account_maintain_current_contact_details | 계정 연락처 정보가 최신인지 확인 | aws.org-account | periodic | notify-only | 🟠 경고 (warning) | 중 | 중기 | 주기 점검 시 정책 조건 위반 | account.yaml.template |
 | 1-03 | account | account_maintain_different_contact_details_to | 보안/청구/운영 연락처를 **분리**해 등록했는지 확인 | aws.org-account | periodic | notify-only | 🟠 경고 (warning) | 중 | 중기 | 주기 점검 시 정책 조건 위반 | account.yaml.template |
 | 1-04 | account | account_security_contact_information_is_registered | 보안(Security) 연락처가 등록되어 있는지 확인 | aws.org-account | periodic | notify-only | 🟠 경고 (warning) | 중 | 중기 | 주기 점검 시 정책 조건 위반 | account.yaml.template |
